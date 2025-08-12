@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use Illuminate\Support\Facades\Artisan;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +15,18 @@ use App\Http\Controllers\ContactController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [ContactController::class, 'home']);
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/admin', function () {
+    return view('smtp');
+});
+Route::get('/start', function () {
+
+    Artisan::call('queue:work');
+     return back()->with('success', 'Worker started!');
 });
 
 
-Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+Route::post('/contact', [ContactController::class, 'sendBulkMail'])->name('contact.send');
+Route::post('/smtp/store', [ContactController::class, 'store'])->name('smtp.store');

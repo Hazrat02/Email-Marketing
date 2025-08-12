@@ -17,6 +17,10 @@ class ContactMail extends Mailable
 
     public function __construct($name, $fromEmail, $subjectLine, $messageText)
     {
+        // $this->name = 'hazrat';
+        // $this->fromEmail = 'hazratbd80@gmail.com';
+        // $this->subjectLine = 'wellcome to our website - hazrat';
+        // $this->messageText = 'wellcome to our website - hazrat ali website';
         $this->name = $name;
         $this->fromEmail = $fromEmail;
         $this->subjectLine = $subjectLine;

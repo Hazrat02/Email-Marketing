@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+// use Illuminate\Queue\Events\WorkerStopping;
+// use Illuminate\Support\Facades\Artisan;
+// use Illuminate\Support\Facades\Event;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+    //      Event::listen(WorkerStopping::class, function () {
+    //     // Clear config cache when queue worker stops
+    //     Artisan::call('config:clear');
+    // });
     }
 }

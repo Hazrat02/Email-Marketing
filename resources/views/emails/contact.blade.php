@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Wimbeldon</title>
+    <title>$fromName</title>
 
 </head>
 
@@ -17,16 +17,16 @@
 
                 <img src="https://backend.wimbledoninvestments.com/public/logo1.png" alt="Logo"
                     style="max-width: 230px; height: 80px; background-color: #333333;">
-                <p><strong>Name:</strong> {{ $name }}</p>
+                {{-- <p><strong>Name:</strong> {{ $name }}</p>
                 <p><strong>Email:</strong> {{ $fromEmail }}</p>
-                <p><strong>Message:</strong></p>
+                <p><strong>Message:</strong></p> --}}
                 <p>{{ $messageText }}</p>
 
                 <p style="color: #666666;">Do not use this in wrong work .</p>
 
-                <a href="wimbledoninvestments.com/servics"
+                {{-- <a href="wimbledoninvestments.com/servics"
                     style="display: inline-block; padding: 10px 20px; background-color: #3498db; color: #ffffff; text-decoration: none;">Read
-                    More</a>
+                    More</a> --}}
 
 
             </td>
@@ -38,13 +38,13 @@
                 <a href="wimbledoninvestments.com/contact" style="color: #3498db; text-decoration: none;">Contact Us</a>
             </td>
         </tr>
-        <tr>
+        {{-- <tr>
             <td style="text-align: center; padding: 20px;">
                 <p style="color: #999999;">You are receiving this email because you subscribed to our newsletter. To
                     unsubscribe, <a href="https://wimbledoninvestments.com/risk/disclosure"
                         style="color: #3498db; text-decoration: none;">click here</a>.</p>
             </td>
-        </tr>
+        </tr> --}}
     </table>
 
 </body>
