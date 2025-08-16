@@ -26,6 +26,13 @@ Route::get('/start', function () {
     Artisan::call('queue:work');
      return back()->with('success', 'Worker started!');
 });
+Route::get('/clear', function () {
+
+    Artisan::call('config:clear');
+    Artisan::call('optimize');
+    //  return back()->with('success', 'all cache cleared!');
+    return 'all cache cleared!';
+});
 
 
 Route::post('/contact', [ContactController::class, 'sendBulkMail'])->name('contact.send');

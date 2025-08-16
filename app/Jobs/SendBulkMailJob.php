@@ -38,6 +38,21 @@ class SendBulkMailJob implements ShouldQueue
 
     public function handle()
     {
+                $smtp = Smtp::find($this->smtpId);
+        if (!$smtp) {
+            return;
+        }
+
+        // Change mail config dynamically
+        config([
+            'mail.mailers.smtp.host'       => $smtp->host,
+            'mail.mailers.smtp.port'       => $smtp->port,
+            'mail.mailers.smtp.encryption' => $smtp->encryption,
+            'mail.mailers.smtp.username'   => $smtp->username,
+            'mail.mailers.smtp.password'   => $smtp->password,
+            'mail.from.address'            => $smtp->from_address,
+            'mail.from.name'               => $this->fromName,
+        ]);
        
         Mail::to($this->to)
             ->send(new ContactMail($this->fromName, $this->fromEmail, $this->subject,$this->body));

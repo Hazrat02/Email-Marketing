@@ -93,21 +93,7 @@ class ContactController extends Controller
         //         $attachments[] = $file->getRealPath();
         //     }
         // }
-        $smtp = Smtp::find($request->smtp_id);
-        if (!$smtp) {
-            return;
-        }
 
-        // Change mail config dynamically
-        config([
-            'mail.mailers.smtp.host'       => $smtp->host,
-            'mail.mailers.smtp.port'       => $smtp->port,
-            'mail.mailers.smtp.encryption' => $smtp->encryption,
-            'mail.mailers.smtp.username'   => $smtp->username,
-            'mail.mailers.smtp.password'   => $smtp->password,
-            'mail.from.address'            => $smtp->from_address,
-            'mail.from.name'               => $request->name,
-        ]);
 
         $emails = preg_split('/[\r\n,]+/', $request->to);
 
