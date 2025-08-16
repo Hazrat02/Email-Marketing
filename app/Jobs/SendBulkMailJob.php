@@ -32,16 +32,19 @@ class SendBulkMailJob implements ShouldQueue
 
         $this->fromName = $fromName;
         $this->fromEmail = $fromEmail;
-         $this->subject = $subject;
+        $this->subject = $subject;
         $this->body = $body;
     }
 
     public function handle()
     {
-                $smtp = Smtp::find($this->smtpId);
+        $smtp = Smtp::find($this->smtpId);
         if (!$smtp) {
             return;
         }
+          if ($smtp->limit <= 0) {
+        return ;
+    }
 
         // Change mail config dynamically
         config([
@@ -53,13 +56,22 @@ class SendBulkMailJob implements ShouldQueue
             'mail.from.address'            => $smtp->from_address,
             'mail.from.name'               => $this->fromName,
         ]);
-       
-        Mail::to($this->to)
-            ->send(new ContactMail($this->fromName, $this->fromEmail, $this->subject,$this->body));
-    
-      app('queue.worker')->stop(0);
-    
-        }
 
-  
+        try {
+            Mail::to($this->to)
+                ->send(new ContactMail(
+                    $this->fromName,
+                    $this->fromEmail,
+                    $this->subject,
+                    $this->body
+                ));
+
+            // ✅ Reduce limit only if mail is sent successfully
+            $smtp->decrement('limit');
+        } catch (\Exception $e) {
+            // You can log the error for debugging
+            return;
+        }
+        app('queue.worker')->stop(0);
+    }
 }

@@ -79,6 +79,7 @@ class ContactController extends Controller
 
 
             'smtp_id' => 'required|exists:smtps,id',
+            
             'subject' => 'required|string',
             'message' => 'required|string',
             'name' => 'required|string',
@@ -93,9 +94,25 @@ class ContactController extends Controller
         //         $attachments[] = $file->getRealPath();
         //     }
         // }
+          $smtp = Smtp::find($request->smtp_id);
+        if (!$smtp) {
+            
+ return back()->with('Error', 'SMTP not found!');
+        }
+          if ($smtp->limit <= 0 ) {
+              if ($smtp->limit <= 0) {
+            return back()->withErrors(['Error' => 'Today limit is End.Increase limit whatsapp No:+8801783195999']);
+        }
 
-
+        }
+        
         $emails = preg_split('/[\r\n,]+/', $request->to);
+               if ($smtp->limit < count($emails)) {
+ return back()->withErrors([
+    'limit' => "Your free Mail limit is {$smtp->limit}. But you submitted " . count($emails) . ". Increase limit whatsapp No:+8801783195999"
+]);
+}
+
 
         foreach ($emails as $email) {
             $email = trim($email);
@@ -112,6 +129,7 @@ class ContactController extends Controller
                 );
             }
         }
+      
 
 
 

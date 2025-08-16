@@ -26,7 +26,11 @@
                         </ul>
                     </div>
                 @endif
-
+                @if (session('Error'))
+                    <div class="alert alert-danger">
+                        {{ session('Error') }}
+                    </div>
+                @endif
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h4 class="card-title mb-3">Send an Email</h4>
@@ -39,10 +43,9 @@
                                 <select class="form-control" name="smtp_id">
 
                                     @foreach ($smtp as $item)
-                                        <option value="{{$item->id}}">{{$item->username}}</option>
-
+                                        <option value="{{ $item->id }}">{{ $item->username }}</option>
                                     @endforeach
-                   
+
                                 </select>
                             </div>
                             <div class="mb-3">
